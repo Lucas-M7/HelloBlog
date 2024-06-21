@@ -22,5 +22,4 @@ public class UserModel
     public string Password { get; set; } = default!;
 
     public ICollection<ArticleModel> Articles { get; set; } = new List<ArticleModel>();
-    public ICollection<Comments> Comments { get; set; } = new List<Comments>();  // Adicione esta linha
 }
