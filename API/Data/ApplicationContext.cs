@@ -1,0 +1,51 @@
+using API.Domain.Models;
+using Microsoft.EntityFrameworkCore;
+
+namespace API.Data;
+
+public class ApplicationContext(DbContextOptions<ApplicationContext> options) : DbContext(options)
+{
+
+    public DbSet<ArticleModel> Articles { get; set; }
+    public DbSet<CategoryModel> Categories { get; set; }
+    public DbSet<ArticleCategoryModel> ArticleCategories { get; set; }
+    public DbSet<UserModel> Users { get; set; }
+    public DbSet<Comments> Comments { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        // Configurando a relação muitos-para-muitos
+        modelBuilder.Entity<ArticleCategoryModel>()
+            .HasKey(ac => new { ac.ArticleId, ac.CategoryId });
+
+        modelBuilder.Entity<ArticleCategoryModel>()
+            .HasOne(ac => ac.Article)
+            .WithMany(a => a.ArticleCategories) // Um artigo pode ter muitas categorias
+            .HasForeignKey(ac => ac.ArticleId);
+
+        modelBuilder.Entity<ArticleCategoryModel>()
+            .HasOne(ac => ac.Category)
+            .WithMany(c => c.ArticleCategories)
+            .HasForeignKey(ac => ac.CategoryId);
+
+        // Configurando a relação um-para-muitos entre UserModel e ArticleModel
+        modelBuilder.Entity<ArticleModel>()
+            .HasOne(a => a.Author)
+            .WithMany(u => u.Articles) // Um usuário pode ter muitos artigos
+            .HasForeignKey(a => a.AuthorId);
+
+        // Configurando a relação um-para-muitos entre Comments e UserModel
+        modelBuilder.Entity<Comments>()
+            .HasOne(c => c.User)
+            .WithMany(u => u.Comments) // Um usuário pode ter muitos comentários
+            .HasForeignKey(c => c.UserId);
+
+        // Configurando a relação um-para-muitos entre Comments e ArticleModel
+        modelBuilder.Entity<Comments>()
+            .HasOne(c => c.Article)
+            .WithMany(a => a.Comments) // Um artigo pode ter muitos comentários
+            .HasForeignKey(c => c.ArticleId);
+
+        base.OnModelCreating(modelBuilder);
+    }
+}
