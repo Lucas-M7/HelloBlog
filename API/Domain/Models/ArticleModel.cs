@@ -27,5 +27,4 @@ public class ArticleModel
     public UserModel Author { get; set; } = default!;
 
     public ICollection<ArticleCategoryModel> ArticleCategories { get; set; } = new List<ArticleCategoryModel>();
-    public ICollection<Comments> Comments { get; set; } = new List<Comments>();
 }
