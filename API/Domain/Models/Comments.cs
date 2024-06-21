@@ -9,10 +9,7 @@ public class Comments
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int CommentId { get; set; } = default!;
 
-    [ForeignKey(nameof(User))]
     public int UserId { get; set; }
-
-    public UserModel User { get; set; } = default!;
 
     [ForeignKey(nameof(Article))]
     public int ArticleId { get; set; }

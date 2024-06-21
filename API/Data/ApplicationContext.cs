@@ -21,30 +21,28 @@ public class ApplicationContext(DbContextOptions<ApplicationContext> options) : 
         modelBuilder.Entity<ArticleCategoryModel>()
             .HasOne(ac => ac.Article)
             .WithMany(a => a.ArticleCategories) // Um artigo pode ter muitas categorias
-            .HasForeignKey(ac => ac.ArticleId);
+            .HasForeignKey(ac => ac.ArticleId)
+            .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<ArticleCategoryModel>()
             .HasOne(ac => ac.Category)
             .WithMany(c => c.ArticleCategories)
-            .HasForeignKey(ac => ac.CategoryId);
+            .HasForeignKey(ac => ac.CategoryId)
+            .OnDelete(DeleteBehavior.Restrict);
 
         // Configurando a relação um-para-muitos entre UserModel e ArticleModel
         modelBuilder.Entity<ArticleModel>()
             .HasOne(a => a.Author)
             .WithMany(u => u.Articles) // Um usuário pode ter muitos artigos
-            .HasForeignKey(a => a.AuthorId);
-
-        // Configurando a relação um-para-muitos entre Comments e UserModel
-        modelBuilder.Entity<Comments>()
-            .HasOne(c => c.User)
-            .WithMany(u => u.Comments) // Um usuário pode ter muitos comentários
-            .HasForeignKey(c => c.UserId);
+            .HasForeignKey(a => a.AuthorId)
+            .OnDelete(DeleteBehavior.Restrict);
 
         // Configurando a relação um-para-muitos entre Comments e ArticleModel
         modelBuilder.Entity<Comments>()
             .HasOne(c => c.Article)
             .WithMany(a => a.Comments) // Um artigo pode ter muitos comentários
-            .HasForeignKey(c => c.ArticleId);
+            .HasForeignKey(c => c.ArticleId)
+            .OnDelete(DeleteBehavior.Restrict);
 
         base.OnModelCreating(modelBuilder);
     }
