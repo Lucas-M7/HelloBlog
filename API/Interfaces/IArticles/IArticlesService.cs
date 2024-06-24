@@ -8,5 +8,5 @@ public interface IArticlesService
     void CreateArticle(ArticleDTO articleDTO);
     void RemoveArticle(int id);
     List<ArticleModel> ListArticles(int? page);
-    ArticleModel FindArticleById(int id);
+    ArticleModel FindArticleByTitle(string title);
 }
