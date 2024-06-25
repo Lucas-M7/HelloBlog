@@ -5,11 +5,9 @@ namespace API.Interfaces.IUsers;
 
 public interface IUsersService
 {
-    UserModel RegisterUser(RegisterDTO registerDTO);
-    UserModel ChangePassword(int id, PasswordDTO passwordDTO);
-    UserModel ChangeEmail(int id, PasswordDTO passwordDTO, EmailDTO emailDTO);
+    UserModel RegisterUser(UserModel user);
     UserModel LoginUser(LoginDTO loginDTO);
     List<UserModel> ListUsers(int? page);
-    UserModel FindUserById(int id); 
+    protected UserModel FindUserById(int id); 
     void DeleteUser(int id);
 }
