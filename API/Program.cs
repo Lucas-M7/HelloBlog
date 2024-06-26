@@ -1,5 +1,7 @@
 using System.Text;
 using API.Data;
+using API.Interfaces.IUsers;
+using API.Services.Users;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -12,6 +14,10 @@ builder.Services.AddDbContext<ApplicationContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("ConexaoPadrao"));
 });
+#endregion
+
+#region ContainerOfDependeces
+builder.Services.AddScoped<IUsersService, UsersService>();
 #endregion
 
 #region Authentication
