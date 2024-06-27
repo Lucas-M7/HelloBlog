@@ -3,6 +3,7 @@ using API.Domain.DTOs;
 using API.Domain.Models;
 using API.Domain.ModelsView;
 using API.Interfaces.IUsers;
+using API.Services.Validations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -25,6 +26,12 @@ public class UsersController : ControllerBase
     [HttpPost("users")]
     public IActionResult RegisterOnUser([FromBody] RegisterDTO registerDTO)
     {
+        var validUser = new UsersValidation(_context);
+        var validation = validUser.ValidationUser(registerDTO);
+
+        if (validation.Messages.Count > 0)
+            return BadRequest(validation);
+
         var user = new UserModel
         {
             Email = registerDTO.Email,
