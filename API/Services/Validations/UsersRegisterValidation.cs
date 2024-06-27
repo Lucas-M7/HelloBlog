@@ -5,11 +5,11 @@ using API.Domain.ModelsView;
 
 namespace API.Services.Validations;
 
-public class UsersValidation
+public class UsersRegisterValidation
 {
     private readonly ApplicationContext _context;
 
-    public UsersValidation(ApplicationContext context)
+    public UsersRegisterValidation(ApplicationContext context)
     {
         _context = context;
     }
