@@ -76,6 +76,18 @@ public class UsersController : ControllerBase
             });
         }
         else
-            return Unauthorized("Error logging in, please check your email and password. Or create a new account");
+            return Unauthorized("Error logging in, please check your credentials.");
+    }
+
+    [Authorize]
+    [HttpGet("/users")]
+    public IActionResult GetAllUsers([FromQuery] int? page)
+    {
+        if (page < 0)
+            return BadRequest("Page invalid.");
+
+        var allUsers = _usersService.ListUsers(page);
+
+        return Ok(allUsers);
     }
 }
