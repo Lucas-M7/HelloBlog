@@ -80,7 +80,20 @@ public class UsersController : ControllerBase
     }
 
     [Authorize]
-    [HttpGet("/users")]
+    [HttpDelete("users")]
+    public IActionResult DeleteUser([FromQuery] int id)
+    {
+        if (_context.Users.Any(x => x.UserId == id))
+        {
+            _usersService.DeleteUser(id);
+            return Ok("User deleted.");
+        }
+
+        return NotFound("User not found.");
+    }
+
+    [Authorize]
+    [HttpGet("users")]
     public IActionResult GetAllUsers([FromQuery] int? page)
     {
         if (page < 0)

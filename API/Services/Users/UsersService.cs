@@ -26,13 +26,14 @@ public class UsersService : IUsersService
     {
         var user = _context.Users.Where(x => x.Email == loginDTO.Email && x.Password == loginDTO.Password).FirstOrDefault();
 
-        return user ?? throw new FileNotFoundException("Login failed, try again.");
+        return user ?? throw new FileNotFoundException("Account not found, you want to creat a new perfil?");
     }
 
     public void DeleteUser(int id)
     {
         var user = FindUserById(id);
         _context.Remove(user);
+        _context.SaveChanges();
     }
 
     public List<UserModel> ListUsers(int? page = 1)
