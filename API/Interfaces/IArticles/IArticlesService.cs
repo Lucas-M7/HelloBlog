@@ -5,7 +5,7 @@ namespace API.Interfaces.IArticles;
 
 public interface IArticlesService
 {
-    void CreateArticle(ArticleDTO articleDTO);
+    ArticleModel CreateArticle(ArticleModel articleModel);
     void RemoveArticle(int id);
     List<ArticleModel> ListArticles(int? page);
     ArticleModel FindArticleByTitle(string title);

@@ -1,6 +1,8 @@
 using System.Text;
 using API.Data;
+using API.Interfaces.IArticles;
 using API.Interfaces.IUsers;
+using API.Services.Articles;
 using API.Services.Users;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -18,6 +20,7 @@ builder.Services.AddDbContext<ApplicationContext>(options =>
 
 #region ContainerOfDependeces
 builder.Services.AddScoped<IUsersService, UsersService>();
+builder.Services.AddScoped<IArticlesService, ArticlesService>();
 #endregion
 
 #region Authentication
